@@ -1,0 +1,110 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@using Vinabook.Controllers.design_pattern;
+@*@using Vinabook.Models
+    @model List<Sach>*@
+
+@model PagedList.PagedList<Vinabook.Models.Sach>
+@{
+    ViewBag.Title = "Sach";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using (Html.BeginForm("Sach"))
+{
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        @*<h3 class="section-title">Sách Mới</h3>*@
+        <div class="col-lg-9">
+            <div class="row">
+             
+                <div class="col-md-4" style="font-size:16pt;">
+                    <input class="click" id="myCheck" style="width:23px;height:15px;" type="checkbox" name="x" value="0" />giảm giá
+                </div>
+                <div class="col-md-4" style="font-size:16pt;">
+                    <input class="click" id="myCheck" style="width:23px;height:15px;" type="checkbox" name="x" value="1" />mới nhập
+                </div>
+                <div class="col-md-4" style="font-size:16pt;">
+                    <input class="click" id="myCheck" style="width:23px;height:15px;" type="checkbox" name="x" value="2" />yêu thích
+                </div>
+                <div style="font-size:16pt;">
+                    <button onclick="myFunction()" style="margin-top:10px;margin-left:10px;color:brown;border-color:brown;">Lọc danh sách</button>
+                </div>
+
+                <br /><br /><br />
+                @Html.Partial("_Partial_1_Sach", Model)
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="product-pagination text-center">
+                            @* Tạo link liên kết các trang*@
+                            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount
+                            <div class="MenuTrang">
+                                @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            @* Sach moi nhap ve*@
+            @Html.Action("SachMoiNhapVe_Partial")
+            @* sach moi nhap ve *@
+            @Html.Action("SachGiamGia_Partial")
+        </div>
+    </div>
+</div>
+}
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+
+    .column_1 {
+        float: left;
+        width: 25%;
+        padding: 0 10px;
+    }
+
+    /* Remove extra left and right margins, due to padding */
+    .row_1 {
+        margin: 0 -5px;
+    }
+
+        /* Clear floats after the columns */
+        .row_1:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+
+    /* Style the counter cards */
+    .card_1 {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        padding: 16px;
+        text-align: center;
+        background-color: #f1f1f1;
+    }
+</style>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script>
+    function myFunction() {
+        var y = document.getElementById("myCheck").value;
+        if (checkbox.checked == true) {
+            if (y == 0) {
+            @Url.Action("Sach",new { x = "0" });
+            }
+            else if (y == 1) {
+             @Url.Action("Sach",new { x = "1" });
+            }
+            else if (y == 2) {
+            @Url.Action("Sach",new { x = "2" });
+            }
+        }
+        else {
+            @Url.Action("Sach");
+        }
+    }
+</script>*@
